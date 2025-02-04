@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap");
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Nunito Sans", serif;
+  scroll-behavior: smooth;
+  @apply bg-neutral-900 text-neutral-300 p-0 m-0;
+}
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
