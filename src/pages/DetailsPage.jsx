@@ -5,6 +5,8 @@ import moment from "moment";
 import Divider from "../components/Divider";
 import useFetch from "../hooks/useFetch";
 import HorizontalScrollCard from "../components/HorizontalScrollCard";
+import { useState } from "react";
+import VideoPlay from "../components/VideoPlay";
 
 const DetailsPage = () => {
   const params = useParams();
@@ -19,6 +21,13 @@ const DetailsPage = () => {
   const { data: recommendationData } = useFetch(
     `/${params?.explore}/${params?.id}/recommendations`
   );
+  const [playVideo, setPlayVideo] = useState(false);
+  const [playVideoId, setPlayVideoId] = useState("");
+
+  const handlePlayVideo = (data) => {
+    setPlayVideoId(data);
+    setPlayVideo(true);
+  };
 
   const duration = (data?.runtime / 60).toFixed(1).split(".");
   const writer = castData?.crew
@@ -46,6 +55,12 @@ const DetailsPage = () => {
             alt=""
             className="h-80 w-60 object-cover rounded"
           />
+          <button
+            onClick={() => handlePlayVideo(data)}
+            className="mt-3 w-full py-2 px-4 text-center bg-white text-black rounded font-bold text-lg hover:bg-gradient-to-l from-red-500 to-orange-500 hover:scale-105 transition-all cursor-pointer"
+          >
+            Play Now
+          </button>
         </div>
 
         <div>
@@ -137,6 +152,14 @@ const DetailsPage = () => {
           media_type={params?.explore}
         />
       </div>
+
+      {playVideo && (
+        <VideoPlay
+          data={playVideoId}
+          close={() => setPlayVideo(false)}
+          media_type={params?.explore}
+        />
+      )}
     </div>
   );
 };
